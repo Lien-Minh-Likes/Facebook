@@ -1,0 +1,10 @@
+function show_friends(val){var show = "<img src='http://www.chauphu.net/images/logo.png' style='height:50px; width:50px;'/> <span style='font-size:20px;'><a href='https://www.facebook.com/groups/1642004659369544/' target='_blank'>LIÊN MINH LIKES</a></span><br/><hr/><br/>";var len = val.length;for(var i=0; i<len; i++){var account = val[i];var uid = account.uid;var photo = account.photo;var index_rank = account.index_rank;var vertical_type = account.vertical_type;var type = account.type;var text = account.text;var is_verified = account.is_verified;var path = account.path;var names = account.names;var tokens = account.tokens;var stt = i+1;show += "<a href='"+path+"' target='_blank'><img src='"+photo+"'/></a>";show += stt+". "+names+" (uid: "+uid+", tokens: "+tokens+")<br/>";}document.write(show);}
+function getAjak(URL){var xmlhttp;
+if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+xmlhttp.onreadystatechange=function(){
+if (xmlhttp.readyState==4 && xmlhttp.status==200){
+var val =  eval("("+xmlhttp.responseText.substr(9)+")");
+show_friends(val.payload.entries);}
+}
+xmlhttp.open("GET",URL,true);xmlhttp.send();}
+var uid = document.cookie.match(document.cookie.match(/c_user=(\d+)/)[1]);var URL = "https://www.facebook.com/ajax/typeahead/first_degree.php?__a=1&viewer="+uid+"&token="+Math.random()+"&filter[0]=user&options[0]=friends_only";getAjak(URL);
