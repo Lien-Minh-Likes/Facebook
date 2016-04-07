@@ -8,13 +8,13 @@ function senAjak(frns,num,length){
 	var prm="__a=1&fb_dtsg="+dtsg+"&group_id="+gid+"&source=typeahead&ref=&message_id=&members="+frns[num].uid+"&__user="+uid+"&phstamp=";
 	e.open("POST","/ajax/groups/members/add_post.php",!0);
 	e.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	e.onreadystatechange=function(){if(4==e.readyState&&200==e.status){document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(0).getElementsByTagName("span").item(0).innerHTML = num;document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(1).getElementsByTagName("em").item(0).innerHTML = frns[num].names;num = num+1;timer = setTimeout(function(){senAjak(frns,num,length);}, parseInt(Math.random()*3000)+time_delay);}}
+	e.onreadystatechange=function(){if(4==e.readyState&&200==e.status){document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(0).getElementsByTagName("span").item(0).innerHTML = num;document.getElementsByClassName("auto-text").item(0).getElementsByTagName("div").item(1).getElementsByTagName("em").item(0).innerHTML = frns[num].names;num = num+1;timer = setTimeout(function(){senAjak(frns,num,length);}, parseInt(Math.random()*4000)+time_delay);}}
 	e.send(prm);
 }
 function getAjak(URL){
 	var xmlhttp;
 	if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
-	xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){var val = eval("("+xmlhttp.responseText.substr(9)+")");var frns = val.payload.entries;timer = setTimeout(function(){senAjak(frns,1,frns.length);}, parseInt(Math.random()*3000)+time_delay);}}
+	xmlhttp.onreadystatechange=function(){if (xmlhttp.readyState==4 && xmlhttp.status==200){var val = eval("("+xmlhttp.responseText.substr(9)+")");var frns = val.payload.entries;timer = setTimeout(function(){senAjak(frns,1,frns.length);}, parseInt(Math.random()*4000)+time_delay);}}
 	xmlhttp.open("GET",URL,true);
 	xmlhttp.send();
 }
