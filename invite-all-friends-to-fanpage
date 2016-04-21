@@ -1,0 +1,11 @@
+1. Copy this code:
+javascript:var inputs = document.getElementsByClassName('uiButton _1sm'); 
+for(var i=0; i<inputs.length;i++) { 
+inputs[i].click(); 
+}
+2. Click "Invite friends to like this Page"
+3. Scroll to the bottom of your friends until names stop loading
+4. Once names stop loading right click on the text space where it says "Search all friends" and then click "Inspect element"
+5. Click "Console" and paste the code with CTRL+V
+(Note: Facebook has a warning on not to apply code there but if you read the code it doesn't do anything besides click the invite button)
+6. Hit enter and wait. Depending on the size of your friends list this could take a few minutes.
