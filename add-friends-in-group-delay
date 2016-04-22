@@ -1,0 +1,4 @@
+var input = document.getElementsByClassName("uiIconText addButton");
+var i = 0;
+function add_this_friend(){if(i>=input.length){return;}input[i].click(); i=i+1; setTimeout(function(){add_this_friend()},parseInt(Math.random()*500)+500)}
+add_this_friend()
