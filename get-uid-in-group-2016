@@ -1,0 +1,13 @@
+var groupid = document.getElementById("pagelet_group_members");
+var ohe_class = groupid.getElementsByClassName("_8o _8r lfloat _ohe");
+var ohe_length = ohe_class.length;
+var groupid = "";
+for(var i=0; i<ohe_length; i++){
+	var data_hover = ohe_class.item(i).getAttribute('data-hovercard');
+	var arr_data = data_hover.split("hovercard/user.php?id=");
+	data_hover = arr_data[1];
+	arr_data = data_hover.split("&extragetparams");
+	var fbuid = arr_data[0];
+	groupid = groupid + fbuid + "<br/>";
+}
+document.write(groupid);
