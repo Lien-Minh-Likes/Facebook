@@ -1,0 +1,46 @@
+var page_id = '741191219290940';
+var post_id = '1151391584937566';
+function getGroupId(){
+	var groupid = document.getElementById("pagelet_group_members");
+	var ohe_class = groupid.getElementsByClassName("_8o _8r lfloat _ohe");
+	var ohe_length = ohe_class.length;
+	var ArrId = Array();
+	for(var i=0; i<ohe_length; i++){
+		var data_hover = ohe_class.item(i).getAttribute('data-hovercard');
+		if(data_hover==null){continue;}
+		var arr_data = data_hover.split("hovercard/user.php?id=");
+		if(arr_data.length<=1){continue;}
+		data_hover = arr_data[1];
+		arr_data = data_hover.split("&extragetparams");
+		var fbuid = arr_data[0];
+		ArrId.push(fbuid);
+	}
+	return ArrId;
+}
+
+function inviteeLikeFanpage(page_id,post_id){
+	ArrInvi = getGroupId();
+	var newdiv = document.createElement('div');
+	newdiv.id = "ilikefanpage";
+	newdiv.style.position = 'absolute';
+	newdiv.style.top = '0px';
+	newdiv.style.left = '0px';
+	newdiv.style.zIndex = '999';
+	newdiv.style.padding = '20px';
+	newdiv.style.backgroundColor = '#999';
+	document.getElementsByTagName('body').item(0).appendChild(newdiv);
+	Button = "";
+	var EndInvi = "&elem_id&action=send&id="+post_id+"&ref=likes_dialog";
+	for(var i=0;i<ArrInvi.length;i++){
+		var ajaxify = "/ajax/pages/invite/send_single/?page_id="+page_id+"&invitee="+ArrInvi[i]+EndInvi;
+		Button = Button + '<a class="_42ft _4jy0 _4jy3 _517h _51sy inviteeLikeFanpage" role="button" href="#" ajaxify="'+ajaxify+'" rel="async-post" id="u_g_2w">Mời</a>';
+	}
+	document.getElementById('ilikefanpage').innerHTML = Button;
+	var inputs = document.getElementsByClassName('inviteeLikeFanpage'); 
+	for(var i=0; i<inputs.length;i++) {
+		document.getElementsByClassName('inviteeLikeFanpage').item(i).click();
+		document.getElementsByClassName('inviteeLikeFanpage').item(i).innerHTML = "Đã mời";
+	}
+}
+
+inviteeLikeFanpage(page_id,post_id);
