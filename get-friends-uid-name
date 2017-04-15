@@ -1,0 +1,18 @@
+var timline_friends = document.getElementById("pagelet_timeline_medley_friends").getElementsByClassName("_3i9").item(0).getElementsByTagName("div").item(0);
+var ul_friends = timline_friends.getElementsByClassName("uiList _262m _4kg");
+var ketqua = "";
+for(var i=0; i<ul_friends.length; i++){
+	var li_friends = ul_friends.item(i).getElementsByClassName("_698");
+	for(var j=0; j<li_friends.length; j++){
+		var a_li = li_friends.item(j).getElementsByTagName("div").item(0).getElementsByTagName("a").item(0);
+		var img_li = a_li.getElementsByTagName("img").item(0);
+		var fbname = img_li.getAttribute("aria-label");
+		var data_hover = a_li.getAttribute('data-hovercard');
+		var arr_data = data_hover.split("hovercard/user.php?id=");
+		data_hover = arr_data[1]; arr_data = data_hover.split("&extragetparams");
+		var fbuid = arr_data[0];
+		ketqua = ketqua + fbuid + "<br/>";
+		ketqua = ketqua + fbname + "<br/>";
+	}
+}
+document.write(ketqua);
